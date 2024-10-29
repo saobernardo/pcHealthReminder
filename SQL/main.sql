@@ -1,4 +1,4 @@
-CREATE TABLE tblsoftware_configuration(
+CREATE TABLE tbltheme_configuration(
 	theme VARCHAR(100) NOT NULL,
 	background_color CHAR(6) NOT NULL,
 	font_color CHAR(6) NOT NULL,
@@ -24,4 +24,8 @@ CREATE TABLE tblhorarios(
 	defaulttime TIME NOT NULL DEFAULT '00:00:00',
 	typenotification TEXT CHECK(typenotification IN('PC', 'SMS', 'WPP', 'TGM')) NOT NULL DEFAULT 'PC',
 	FOREIGN KEY(id_tarefa) REFERENCES tbltarefa(id)
+);
+
+create table tblconfig(
+	version VARCHAR(20) NOT NULL,
 );
