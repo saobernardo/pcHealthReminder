@@ -3,28 +3,38 @@ from plyer import notification
 from tkinter import *
 import apsw
 import apsw.bestpractice
-from reminderslist import reminder_screen
+import sys
+sys.path.insert(0, './src/screens')
+from reminderslist import reminderlist_screen
+from threadslist import  threadslist_screen
 
 apsw.bestpractice.apply(apsw.bestpractice.recommended)
 
 db = apsw.Connection('db.sqlite', flags=apsw.SQLITE_OPEN_READWRITE)
 cursor = db.cursor()
 
-def open_window(main):
-  reminder_screen(main)
+def open_window(main, name = 'lembretes'):
+    match name:
+        case 'lembretes':
+            return reminderlist_screen(main)
+        case 'tarefas':
+            return threadslist_screen(main)
+        case _:
+            return 'Não encontrado'
 
 #Main Screen
 
 for row in cursor.execute('SELECT background_color, font_color, screen_size FROM tbltheme_configuration WHERE active = 1'):
-  backgroundColor = '#%s' % row[0]
-  font_color = '#%s' % row[1]
-  screen_size = row[2]
+    backgroundColor = '#%s' % row[0]
+    font_color = '#%s' % row[1]
+    screen_size = row[2]
 
 mainScreen = tk.Tk()
 menubar = tk.Menu(mainScreen)
 
 reminders_menu = tk.Menu(menubar, tearoff=0)
-reminders_menu.add_command(label='Lista de lembretes', command=lambda: open_window(mainScreen))
+reminders_menu.add_command(label='Lembretes', command=lambda: open_window(mainScreen, 'lembretes'))
+reminders_menu.add_command(label='Tarefas', command=lambda: open_window(mainScreen, 'tarefas'))
 reminders_menu.add_separator()
 reminders_menu.add_command(label='Sair', command = mainScreen.quit)
 menubar.add_cascade(label='Arquivo', menu=reminders_menu)
@@ -38,7 +48,5 @@ menubar.add_cascade(label='Sistema', menu=configurations_menu)
 mainScreen.geometry(screen_size)
 mainScreen.title('PC Health Reminder')
 mainScreen.configure(background=backgroundColor, menu=menubar)
-
-
 
 mainScreen.mainloop()
