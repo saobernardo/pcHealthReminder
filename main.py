@@ -30,6 +30,7 @@ for row in cursor.execute('SELECT background_color, font_color, screen_size FROM
     screen_size = row[2]
 
 mainScreen = tk.Tk()
+mainScreen.iconbitmap("src/icons/signofhealth_medical_10742.ico")
 menubar = tk.Menu(mainScreen)
 
 reminders_menu = tk.Menu(menubar, tearoff=0)

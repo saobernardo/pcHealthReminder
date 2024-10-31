@@ -17,6 +17,7 @@ def threadslist_screen(main):
         screen_size = row[2]
 
     threadlistScreen = tk.Toplevel(main)
+    threadlistScreen.iconbitmap("src/icons/signofhealth_medical_10742.ico")
     threadlistScreen.geometry(screen_size)
     threadlistScreen.title('Lista de Tarefas - PC Health Reminder')
     threadlistScreen.configure(background=backgroundColor)
