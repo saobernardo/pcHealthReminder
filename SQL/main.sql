@@ -30,8 +30,3 @@ CREATE TABLE tblhorarios(
 create table tblconfig(
 	version VARCHAR(20) NOT NULL,
 );
-
-SELECT h.id, t.descricao AS tarefa, 
-CASE WHEN h.everyxtimeenable = 1 THEN h.everyxtime ELSE 'Não habilitado' END AS everyxtime, CASE WHEN h.everyxtimeenable = 0 THEN h.defaulttime ELSE 'Não habilitado' END AS defaulttime
-
-FROM tblhorarios h INNER JOIN tbltarefas t ON t.id = h.id_tarefa
